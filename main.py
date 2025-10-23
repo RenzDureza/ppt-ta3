@@ -21,6 +21,7 @@ class Project:
 
 
 def main():
+    global unique_id
     project_queue = None
     running = True
 
@@ -41,9 +42,9 @@ def main():
                 priority = int(input("Enter Priority Level: "))
                 print(separator)
                 input_to_file(title, priority)
+                unique_id += 1
                 print("Project Inputted")
                 input("Press enter to continue...")
-                unique_id += 1
                 os.system("cls" if os.name == "nt" else "clear")
             case "2":
                 os.system("cls" if os.name == "nt" else "clear")
@@ -139,15 +140,17 @@ def count_lines(filepath):
 
 
 def input_to_file(title, priority):
+    global unique_id
     with open(projects_file, "a") as file:
         file.write(separator + "\n")
         file.write(f"Document Title: {title}\n")
         file.write(f"Priority Level: {priority}\n")
-        file.write(f"Document ID: {unique_id :04d}\n")
+        file.write(f"Document ID: {unique_id:04d}\n")
 
 
 def find_project(filepath):
     doc_id = input("Enter document ID: ")
+    global unique_id
     with open(filepath, "r") as file:
         found = False
         lines = file.readlines()
